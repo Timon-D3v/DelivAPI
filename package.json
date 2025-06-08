@@ -2,8 +2,18 @@
   "name": "delivapi",
   "version": "0.0.1",
   "description": "A personal CDN/WebAPI for uploading and pulling images and other files from.",
+  "homepage": "https://github.com/Timon-D3v/delivapi#readme",
+  "author": "Timon Fiedler",
+  "license": "MIT",
   "main": "src/app.ts",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Timon-D3v/delivapi.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Timon-D3v/delivapi/issues"
+  },
   "scripts": {
     "dev": "tsx watch src/app.ts",
     "build": "tsc",
@@ -11,9 +21,21 @@
     "start": "tsc && node dist/app.js",
     "start:last": "node dist/app.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Timon-D3v/delivapi.git"
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "mysql2": "^3.14.1",
+    "node-mailjet": "^6.0.8",
+    "timonjs": "^2.1.0"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/express": "^5.0.3",
+    "@types/node": "^22.15.30",
+    "prettier": "^3.5.3",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
   },
   "keywords": [
     "API",
@@ -24,20 +46,5 @@
     "image",
     "webapi",
     "personal"
-  ],
-  "author": "Timon Fiedler",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Timon-D3v/delivapi/issues"
-  },
-  "homepage": "https://github.com/Timon-D3v/delivapi#readme",
-  "dependencies": {
-    "express": "^5.1.0"
-  },
-  "devDependencies": {
-    "@types/express": "^5.0.3",
-    "@types/node": "^22.15.30",
-    "tsx": "^4.19.4",
-    "typescript": "^5.8.3"
-  }
+  ]
 }
