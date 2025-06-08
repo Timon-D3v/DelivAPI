@@ -1,0 +1,43 @@
+{
+  "name": "delivapi",
+  "version": "0.0.1",
+  "description": "A personal CDN/WebAPI for uploading and pulling images and other files from.",
+  "main": "src/app.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/app.ts",
+    "build": "tsc",
+    "watch": "tsc --watch --noEmit",
+    "start": "tsc && node dist/app.js",
+    "start:last": "node dist/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Timon-D3v/delivapi.git"
+  },
+  "keywords": [
+    "API",
+    "CDN",
+    "file",
+    "upload",
+    "pull",
+    "image",
+    "webapi",
+    "personal"
+  ],
+  "author": "Timon Fiedler",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Timon-D3v/delivapi/issues"
+  },
+  "homepage": "https://github.com/Timon-D3v/delivapi#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^22.15.30",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  }
+}
