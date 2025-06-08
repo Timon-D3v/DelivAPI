@@ -1,0 +1,9 @@
+Simple Landing page on the root
+
+Link to loginpage 
+Redirects to adminpage
+
+
+On the adminpage:
+
+create new api keys

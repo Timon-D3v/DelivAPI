@@ -1,0 +1,4 @@
+API Keys are auto generated.
+
+There is no admin page to generate them from 
+I want to implement this on www.timondev.com (Link to github: https://github.com/Timon-D3v/website, Commit: TO BE MADE)

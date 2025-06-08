@@ -1,0 +1,18 @@
+Create a new Schema
+
+
+for each user: 
+    - generate a new table: name = organization name
+    table:
+        - id: number
+        - file: blob
+        - mimetype: string
+
+request: 
+   api.timondev.com/cdn/<organization name>/<hex code>
+
+   hex code: primary_id of the file + 500'000 (FILE_ID_ADDITION) in hexadecimal
+
+   generate filename: primary_id + FILE_ID_ADDITION => HEX
+
+   get primary_id from filename: filename - FILE_ID_ADDITION => BASE 10
