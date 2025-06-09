@@ -1,3 +1,5 @@
+import type { DelivApiResponse } from "delivapi-client";
+
 export type Config = {
     ENV: "dev" | "prod";
     HOST: string;
@@ -18,4 +20,10 @@ export type User = {
     id: number;
     name: string;
     key: string;
+};
+
+export type FileDetails = {
+    primary_id: number;
+    mimetype: string;
+    file: Buffer;
 };

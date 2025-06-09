@@ -1,5 +1,5 @@
 import mysql from "mysql2";
-import { CONFIG } from "../config";
+import { CONFIG } from "../config.ts";
 
 export default mysql
     .createPool({

@@ -1,12 +1,10 @@
-import { Request, Response, Router } from "express";
+import { type Request, type Response, Router } from "express";
 
 // This router serves under "/"
 const router = Router();
 
 router.get("/", (req: Request, res: Response): void => {
-    res.sendFile("./public/index.html", {
-        root: "./",
-    });
+    res.status(200).json("DelivAPI is running!");
 });
 
 export default router;

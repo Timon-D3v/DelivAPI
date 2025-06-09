@@ -1,5 +1,5 @@
-import { CONFIG } from "../config";
-import { hexToNumber, toHexString } from "./numbers";
+import { CONFIG } from "../config.ts";
+import { hexToNumber, toHexString } from "./numbers.ts";
 
 /**
  * Verifies whether the provided filename is valid according to specific rules:
