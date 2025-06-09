@@ -1,1 +1,1 @@
-CREATE SCHEMA "cdn";
+CREATE SCHEMA `cdn` ;

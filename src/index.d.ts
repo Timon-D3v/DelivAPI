@@ -13,3 +13,9 @@ export type Config = {
     ORIGIN: string;
     FILE_ID_ADDITION: number;
 };
+
+export type User = {
+    id: number;
+    name: string;
+    key: string;
+};

@@ -1,4 +1,11 @@
 API Keys are auto generated.
 
 There is no admin page to generate them from 
-I want to implement this on www.timondev.com (Link to github: https://github.com/Timon-D3v/website, Commit: TO BE MADE)
+I want to implement this on www.timondev.com (Link to github: https://github.com/Timon-D3v/website, Commit: https://github.com/Timon-D3v/website/commit/e6f4bc7d027f1efbd952f499403b3782228b5ace)
+
+
+
+What do i need to store from the User:
+    - name
+    - key
+    - id

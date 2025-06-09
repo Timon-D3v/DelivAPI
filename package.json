@@ -2,17 +2,17 @@
   "name": "delivapi",
   "version": "0.0.1",
   "description": "A personal CDN/WebAPI for uploading and pulling images and other files from.",
-  "homepage": "https://github.com/Timon-D3v/delivapi#readme",
+  "homepage": "https://github.com/Timon-D3v/DelivAPI.git#readme",
   "author": "Timon Fiedler",
   "license": "MIT",
   "main": "src/app.ts",
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Timon-D3v/delivapi.git"
+    "url": "git+https://github.com/Timon-D3v/DelivAPI.git"
   },
   "bugs": {
-    "url": "https://github.com/Timon-D3v/delivapi/issues"
+    "url": "https://github.com/Timon-D3v/DelivAPI.git/issues"
   },
   "scripts": {
     "dev": "tsx watch src/app.ts",
@@ -23,8 +23,11 @@
     "format": "prettier --write \"{src,public}/**/*.{ts,html,css,js}\""
   },
   "dependencies": {
+    "@types/multer": "^1.4.13",
+    "delivapi-client": "^1.0.0",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "multer": "^2.0.1",
     "mysql2": "^3.14.1",
     "node-mailjet": "^6.0.8",
     "timonjs": "^2.1.0"
