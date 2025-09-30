@@ -1,6 +1,6 @@
 {
   "name": "delivapi",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A personal CDN/WebAPI for uploading and pulling images and other files from.",
   "homepage": "https://github.com/Timon-D3v/DelivAPI.git#readme",
   "author": "Timon Fiedler",
@@ -21,12 +21,15 @@
     "watch": "tsc --watch --noEmit",
     "start": "tsc && node dist/app.js",
     "start:last": "node dist/app.js",
-    "format": "prettier --write \"{src,public}/**/*.{ts,html,css,js}\""
+    "format": "prettier --write \"{src,public}/**/*.{ts,html,css,js}\"",
+    "docker:build": "docker build . -t delivapi:latest",
+    "docker:run": "docker run --rm --name delivapi -p 8080:8080 --env-file ./docker.env delivapi",
+    "docker:stop": "docker stop delivapi"
   },
   "dependencies": {
-    "@types/multer": "^1.4.13",
+    "cors": "^2.8.5",
     "delivapi-client": "^1.0.0",
-    "dotenv": "^16.5.0",
+    "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "multer": "^2.0.1",
     "mysql2": "^3.14.1",
@@ -34,8 +37,10 @@
     "timonjs": "^2.1.0"
   },
   "devDependencies": {
+    "@types/multer": "^2.0.0",
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
-    "@types/node": "^22.15.30",
+    "@types/node": "^24.6.0",
     "prettier": "^3.5.3",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3"

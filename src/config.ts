@@ -1,4 +1,5 @@
 import dotenv from "dotenv";
+import process from "process";
 import type { Config } from "./index.d.ts";
 
 dotenv.config();
