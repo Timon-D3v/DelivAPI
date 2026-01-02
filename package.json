@@ -1,6 +1,6 @@
 {
   "name": "delivapi",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "A personal CDN/WebAPI for uploading and pulling images and other files from.",
   "homepage": "https://github.com/Timon-D3v/DelivAPI.git#readme",
   "author": "Timon Fiedler",
@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "delivapi-client": "^1.0.0",
+    "delivapi-client": "^1.2.0",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "multer": "^2.0.1",
