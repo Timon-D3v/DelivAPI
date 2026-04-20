@@ -1,6 +1,6 @@
-FROM node:22.16.0-alpine3.20
+FROM node:24.15.0-alpine3.23
 
-WORKDIR /build
+WORKDIR /delivapi
 
 COPY package*.json .
 

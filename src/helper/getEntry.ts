@@ -5,9 +5,11 @@ import connection from "./connection.ts";
 /**
  * Retrieves a user entry from the database by username.
  *
- * Executes a SQL query to fetch the user with the specified name from the `cdn.user` table.
+ * Executes a SQL query to fetch the user with the specified name from the `delivapi.user` table.
  * If the user is found, returns the user object. If not found, or if an error occurs,
  * returns an Error object.
+ *
+ * @async
  *
  * @param {string} user - The username to search for in the database.
  *
@@ -15,7 +17,7 @@ import connection from "./connection.ts";
  */
 export async function getEntryForUser(user: string): Promise<User | Error> {
     try {
-        const [rows, fields]: [RowDataPacket[], FieldPacket[]] = await connection.query("SELECT * FROM `cdn`.`user` WHERE (`name` = ?);", [user]);
+        const [rows, fields]: [RowDataPacket[], FieldPacket[]] = await connection.query("SELECT * FROM `delivapi`.`user` WHERE (`name` = ?);", [user]);
 
         if (rows.length === 0) {
             throw new Error("User not found");

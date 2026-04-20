@@ -23,7 +23,14 @@ export type User = {
 };
 
 export type FileDetails = {
-    primary_id: number;
+    uuid: number;
     mimetype: string;
     file: Buffer;
+};
+
+export type FileChunk = {
+    id: number;
+    uuid: number;
+    chunkIndex: string;
+    chunk: Buffer;
 };

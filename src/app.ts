@@ -10,7 +10,7 @@ const app = express();
 app.use(
     express.urlencoded({
         extended: true,
-        limit: "10gb",
+        limit: "100mb",
     }),
 );
 

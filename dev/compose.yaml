@@ -1,0 +1,17 @@
+---
+services:
+  mysql:
+    image: "mysql:8.0.43"
+    container_name: "delivapi-dev-mysql-db"
+    pull_policy: if_not_present
+    tty: true
+    restart: unless-stopped
+    env_file:
+      - ./mysql/.env
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/config:/etc/mysql/conf.d
+      - ./mysql/logs:/var/log/mysql
+      - ./mysql/init:/docker-entrypoint-initdb.d
+    ports:
+      - 8081:3306

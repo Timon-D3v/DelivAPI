@@ -48,3 +48,7 @@ TODO.txt
 /.vscode
 .vscode/
 .vscode/**
+/tests
+tests/
+tests/**
+dev/mysql/
