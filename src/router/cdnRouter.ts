@@ -1,6 +1,7 @@
 import { type Request, type Response, Router } from "express";
 import { extension } from "mime-types";
 import { getAllChunksForUuid, getFile } from "../helper/getFile.ts";
+import { transformImage } from "../helper/transform.ts";
 
 // This router serves under "/cdn"
 const router = Router();
@@ -71,19 +72,24 @@ router.get("/:database/:filename", async (req: Request, res: Response): Promise<
 
             chunks.sort((a, b) => a.chunkIndex - b.chunkIndex);
 
-            let totalLength = 0;
+            const concatenatedBuffer = Buffer.concat(chunks.map((chunk) => chunk.chunk));
 
-            for (const chunk of chunks) {
-                totalLength += chunk.chunk.length;
-            }
+            const transformedFileDetails = await transformImage(
+                {
+                    uuid: fileDetails.uuid,
+                    mimetype: json.mimetype,
+                    file: concatenatedBuffer,
+                },
+                req.query,
+            );
 
             res.set({
-                "Content-Length": totalLength,
+                "Content-Type": transformedFileDetails.mimetype,
+                "Content-Length": transformedFileDetails.file.length,
+                "Content-Disposition": `${download ? "attachment" : "inline"}; filename="${filename}${extension(transformedFileDetails.mimetype) ? "." + extension(transformedFileDetails.mimetype) : ""}"`,
             });
 
-            for (const chunk of chunks) {
-                res.write(chunk.chunk);
-            }
+            res.send(transformedFileDetails.file);
 
             res.end();
             return;
@@ -94,13 +100,15 @@ router.get("/:database/:filename", async (req: Request, res: Response): Promise<
         // File is not a JSON, assuming it's a regular file and sending it as is.
     }
 
+    const transformedFileDetails = await transformImage(fileDetails, req.query);
+
     res.set({
-        "Content-Type": fileDetails.mimetype,
-        "Content-Length": fileDetails.file.length,
-        "Content-Disposition": `${download ? "attachment" : "inline"}; filename="${filename}${extension(fileDetails.mimetype) ? "." + extension(fileDetails.mimetype) : ""}"`,
+        "Content-Type": transformedFileDetails.mimetype,
+        "Content-Length": transformedFileDetails.file.length,
+        "Content-Disposition": `${download ? "attachment" : "inline"}; filename="${filename}${extension(transformedFileDetails.mimetype) ? "." + extension(transformedFileDetails.mimetype) : ""}"`,
     });
 
-    res.send(fileDetails.file);
+    res.send(transformedFileDetails.file);
     res.end();
 });
 

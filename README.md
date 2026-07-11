@@ -290,6 +290,8 @@ Fetch a file.
 
 - If the `download` query param is set to `true`, the file will automatically be downloaded.
 
+- If the file is a image, there are query params to transform that image.
+
 Otherwise it returns the file directly from the `cdn` schema.
 
 Example:
@@ -301,6 +303,84 @@ Example (with download):
 ```text
 GET /cdn/<user>/<uuid>?download=true
 ```
+
+Example (with transformations):
+```text
+GET /cdn/<user>/<uuid>?width=1200&height=800&fit=cover&position=centre&format=webp&quality=82&grayscale=true&blur=0.3
+```
+This example:
+- resizes to `1200x800`
+- uses `fit=cover` and centered crop position
+- converts output to `webp`
+- sets quality to `82`
+- applies grayscale and a slight blur
+
+<details>
+<summary><strong>All transformation query options</strong></summary>
+
+##### Resize / fit
+- `width?: number`
+- `height?: number`
+- `fit?: keyof FitEnum`
+- `position?: keyof Gravity | string`
+- `kernel?: keyof KernelEnum`
+- `withoutReduction?: boolean`
+- `fastShrinkOnLoad?: boolean`
+
+##### Rotate / flip
+- `rotate?: number`
+- `flip?: boolean`
+- `flop?: boolean`
+
+##### Extract / crop region
+- `left?: number`
+- `top?: number`
+- `extractWidth?: number`
+- `extractHeight?: number`
+
+##### Extend / padding
+- `extendTop?: number`
+- `extendBottom?: number`
+- `extendLeft?: number`
+- `extendRight?: number`
+- `extendBackground?: string`
+
+##### Adjustments
+- `blur?: number`
+- `sharpen?: number`
+- `median?: number`
+- `gamma?: number`
+- `negate?: boolean`
+- `normalize?: boolean`
+- `grayscale?: boolean`
+- `claheWidth?: number`
+- `claheHeight?: number`
+- `claheMaxSlope?: number`
+
+##### Modulate
+- `brightness?: number`
+- `saturation?: number`
+- `hue?: number`
+- `lightness?: number`
+
+##### Tint
+- `tint?: string`
+
+##### Output / encoding
+- `quality?: number`
+- `progressive?: boolean`
+- `mozjpeg?: boolean`
+- `lossless?: boolean`
+- `format?: "jpeg" | "png" | "webp" | "avif" | "gif" | "tiff" | "heif" | "jp2"`
+
+##### Alpha / metadata / color
+- `removeAlpha?: boolean`
+- `ensureAlpha?: number`
+- `withMetadata?: boolean`
+- `colourspace?: "srgb" | "rgb" | "cmyk" | "lab" | "b-w"`
+
+</details>
+
 
 ---
 
@@ -324,7 +404,6 @@ For each organization/user `${organizationName}`, DelivAPI uses:
 
 ## Roadmap
 
-- [x] Share downloadable links with a query param
 - [ ] Add a UI (admin / upload browser / file list)
 
 ---
