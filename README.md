@@ -288,11 +288,18 @@ Fetch a file.
   - streams the combined content
   - sets `Content-Type` and `Content-Disposition`
 
+- If the `download` query param is set to `true`, the file will automatically be downloaded.
+
 Otherwise it returns the file directly from the `cdn` schema.
 
 Example:
 ```text
 GET /cdn/<user>/<uuid>
+```
+
+Example (with download):
+```text
+GET /cdn/<user>/<uuid>?download=true
 ```
 
 ---
@@ -317,7 +324,7 @@ For each organization/user `${organizationName}`, DelivAPI uses:
 
 ## Roadmap
 
-- [ ] Limit allowed MIME types (`mime-types` package)
+- [x] Share downloadable links with a query param
 - [ ] Add a UI (admin / upload browser / file list)
 
 ---

@@ -9,6 +9,10 @@ import { updateFile } from "../helper/updateFile.ts";
 import { getFile } from "../helper/getFile.ts";
 import { getAllMetadata, getAllUuids } from "../helper/getAllFileUuids.ts";
 import { fileTypeFromBuffer } from "file-type";
+import { detectAv } from "@file-type/av";
+import { detectCfbf } from "@file-type/cfbf";
+import { detectPdf } from "@file-type/pdf";
+import { detectXml } from "@file-type/xml";
 import { deleteAllChunksForId, deleteFile } from "../helper/deleteFile.ts";
 
 // This router serves under "/api"
@@ -61,7 +65,9 @@ router.post("/upload", upload.single("file"), async (req: Request, res: Response
             throw entry;
         }
 
-        const mimeType = await fileTypeFromBuffer(file.buffer);
+        const mimeType = await fileTypeFromBuffer(file.buffer, {
+            customDetectors: [detectAv, detectCfbf, detectPdf, detectXml],
+        });
 
         if (!mimeType || !mimeType.mime) {
             const response: DelivApiUploadResponse = {
@@ -187,7 +193,9 @@ router.post("/update", upload.single("file"), async (req: Request, res: Response
             return;
         }
 
-        const mimeType = await fileTypeFromBuffer(file.buffer);
+        const mimeType = await fileTypeFromBuffer(file.buffer, {
+            customDetectors: [detectAv, detectCfbf, detectPdf, detectXml],
+        });
 
         if (!mimeType || !mimeType.mime) {
             const response: DelivApiUpdateResponse = {
@@ -270,7 +278,9 @@ router.post("/uploadInitialChunk", upload.single("chunk"), async (req: Request, 
             throw entry;
         }
 
-        const mimeType = await fileTypeFromBuffer(chunk.buffer);
+        const mimeType = await fileTypeFromBuffer(chunk.buffer, {
+            customDetectors: [detectAv, detectCfbf, detectPdf, detectXml],
+        });
 
         if (!mimeType || !mimeType.mime) {
             const response: DelivApiUploadInitialChunkResponse = {
@@ -420,7 +430,9 @@ router.post("/updateInitialChunk", upload.single("chunk"), async (req: Request, 
             return;
         }
 
-        const mimeType = await fileTypeFromBuffer(chunk.buffer);
+        const mimeType = await fileTypeFromBuffer(chunk.buffer, {
+            customDetectors: [detectAv, detectCfbf, detectPdf, detectXml],
+        });
 
         if (!mimeType || !mimeType.mime) {
             const response: DelivApiUpdateInitialChunkResponse = {

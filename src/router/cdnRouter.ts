@@ -7,6 +7,7 @@ const router = Router();
 
 router.get("/:database/:filename", async (req: Request, res: Response): Promise<void> => {
     const { database, filename } = req.params;
+    const download = req.query?.["download"] === "true";
 
     if (Array.isArray(database) || Array.isArray(filename)) {
         res.status(400).json({
@@ -44,7 +45,7 @@ router.get("/:database/:filename", async (req: Request, res: Response): Promise<
             // This is a chunked file, we need to retrieve all chunks and combine them before sending the response
             res.set({
                 "Content-Type": json.mimetype,
-                "Content-Disposition": `inline; filename="${filename}${extension(json.mimetype) ? "." + extension(json.mimetype) : ""}"`,
+                "Content-Disposition": `${download ? "attachment" : "inline"}; filename="${filename}${extension(json.mimetype) ? "." + extension(json.mimetype) : ""}"`,
                 // We don't set the Content-Length header here because we don't know the total size of the combined chunks yet
             });
 
@@ -96,7 +97,7 @@ router.get("/:database/:filename", async (req: Request, res: Response): Promise<
     res.set({
         "Content-Type": fileDetails.mimetype,
         "Content-Length": fileDetails.file.length,
-        "Content-Disposition": `inline; filename="${filename}${extension(fileDetails.mimetype) ? "." + extension(fileDetails.mimetype) : ""}"`,
+        "Content-Disposition": `${download ? "attachment" : "inline"}; filename="${filename}${extension(fileDetails.mimetype) ? "." + extension(fileDetails.mimetype) : ""}"`,
     });
 
     res.send(fileDetails.file);
