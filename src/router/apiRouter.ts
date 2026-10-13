@@ -1,5 +1,5 @@
 import { json, type Request, type Response, Router } from "express";
-import crypto from "crypto";
+import crypto from "node:crypto";
 import multer from "multer";
 import { DelivApiUpdateInitialChunkResponse, DelivApiUpdateResponse, DelivApiUploadChunkResponse, DelivApiUploadInitialChunkResponse, DelivApiUploadResponse, type DelivApiResponse } from "delivapi-client";
 import { getEntryForUser } from "../helper/getEntry.ts";

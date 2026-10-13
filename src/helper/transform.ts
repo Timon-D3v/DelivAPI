@@ -1,4 +1,4 @@
-import Sharp, { FitEnum, Gravity, KernelEnum } from "sharp";
+import Sharp from "sharp";
 import type { FileDetails, TransformImageOptions, RawTransformImageOptions } from "../index.js";
 
 export async function transformImage(file: FileDetails, rawOptions: RawTransformImageOptions): Promise<FileDetails> {
@@ -152,6 +152,8 @@ export async function transformImage(file: FileDetails, rawOptions: RawTransform
 
         if (options.rotate !== undefined) {
             image = image.rotate(options.rotate);
+        } else {
+            image = image.rotate(); // Auto-rotate based on EXIF data
         }
 
         if (options.flip) {

@@ -1,12 +1,11 @@
-FROM node:24.15.0-alpine3.23
+FROM node:24-slim
 
 WORKDIR /delivapi
 
-COPY package*.json .
-
-RUN npm install --omit=dev
-RUN npm cache clean --force
+COPY package*.json ./
 
 COPY dist dist
+
+RUN npm ci --omit=dev
 
 CMD ["node", "dist/app.js"]
