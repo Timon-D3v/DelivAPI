@@ -2,12 +2,12 @@
 
 A personal CDN/WebAPI for uploading and pulling images and other files.
 
-- Version: **2.0.0**
+- Version: **2.1.0**
 - Repo: https://github.com/Timon-D3v/DelivAPI
 - Docker image: `timond3v/delivapi:latest`
 - Client library: https://github.com/Timon-D3v/DelivAPI-Client (NPM: `delivapi-client`)
 
-> DelivAPI v2.0 adds an improved database structure and **chunked uploads**.
+> DelivAPI v2.1 adds image transformation via url queries.
 
 ---
 
