@@ -1,6 +1,6 @@
 {
   "name": "delivapi",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "A personal CDN/WebAPI for uploading and pulling images and other files from.",
   "homepage": "https://github.com/Timon-D3v/DelivAPI.git#readme",
   "author": "Timon Fiedler",
@@ -21,6 +21,7 @@
     "watch": "tsc --watch --noEmit",
     "start": "tsc && node dist/app.js",
     "start:last": "node dist/app.js",
+    "stop": "docker compose -f ./dev/compose.yaml down",
     "format": "prettier --write \"{src,public}/**/*.{ts,html,css,js}\"",
     "fmt": "npm run format",
     "push": "npm run fmt && npm run build && sh dockerize.sh"
@@ -38,6 +39,7 @@
     "mime-types": "^3.0.2",
     "multer": "^2.4.0",
     "mysql2": "^3.24.6",
+    "pretty-bytes": "^7.2.0",
     "sharp": "^0.35.5"
   },
   "devDependencies": {

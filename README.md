@@ -2,12 +2,12 @@
 
 A personal CDN/WebAPI for uploading and pulling images and other files.
 
-- Version: **2.1.0**
+- Version: **2.2.0**
 - Repo: https://github.com/Timon-D3v/DelivAPI
 - Docker image: `timond3v/delivapi:latest`
 - Client library: https://github.com/Timon-D3v/DelivAPI-Client (NPM: `delivapi-client`)
 
-> DelivAPI v2.1 adds image transformation via url queries.
+> DelivAPI v2.2 adds file caching.
 
 ---
 
@@ -19,7 +19,7 @@ A personal CDN/WebAPI for uploading and pulling images and other files.
   - init upload session (`/api/uploadInitialChunk`)
   - upload chunks (`/api/uploadChunk`)
   - init chunked update (`/api/updateInitialChunk`)
-- CDN-style file serving:
+- CDN-style file serving with caching:
   - `GET /cdn/:database/:filename`
   - Automatically reassembles chunked files server-side
 - Basic HMAC authentication via `x-signature`
@@ -77,6 +77,13 @@ DelivAPI loads configuration via `dotenv` and expects the following variables:
 | `MYSQL_PASSWORD` | `string` | MySQL password |
 | `MYSQL_SCHEMA` | `string` | Main schema name (project uses multiple schemas) |
 | `ORIGIN` | `string` | Public origin used to build returned URLs (e.g. `https://api.example.com`) |
+| `CACHE_MAX_FILESIZE` | `number` | Max size for a file to be cached in MB (optional, default = 50 MB) |
+| `CACHE_ASSETS_LIMIT` | `number` | Max number of assets cached simultaneously (optional, default = 100) |
+| `CACHE_ASSETS_MAX_SIZE` | `number` | Max size of the assets cache in MB (optional, default = 2 GB) |
+| `CACHE_ASSETS_TTL` | `number` | Max time for an asset to stay in the cache in hours (optional, default = 24h) |
+| `CACHE_TRANSFORMATION_LIMIT` | `number` | Max number of transformed assets cached simultaneously (optional, default = 1000) |
+| `CACHE_TRANSFORMATION_MAX_SIZE` | `number` | Max size of the transformed assets cache in MB (optional, default = 2 GB) |
+| `CACHE_TRANSFORMATION_TTL` | `number` | Max time for an transformed asset to stay in the cache in hours (optional, default = 24h) |
 
 ---
 
@@ -112,26 +119,14 @@ npm start
 
 ## Docker
 
-### Build locally
+### Build and push
 ```bash
-npm run docker:build
+npm run push
 ```
-
-### Run locally
-```bash
-npm run docker:run
-```
-
-This runs the container and binds port `8080:8080` and loads environment variables from `./docker.env`.
 
 ### Stop
 ```bash
-npm run docker:stop
-```
-
-### Multi-arch build and push
-```bash
-npm run docker:buildx:push
+npm run stop
 ```
 
 Image: `timond3v/delivapi:latest`
@@ -294,6 +289,8 @@ Fetch a file.
 
 Otherwise it returns the file directly from the `cdn` schema.
 
+- If the file is not larger than the cache file limit, the file will be added to the corresponding cache.
+
 Example:
 ```text
 GET /cdn/<user>/<uuid>
@@ -404,6 +401,7 @@ For each organization/user `${organizationName}`, DelivAPI uses:
 
 ## Roadmap
 
+- [ ] Added a cli tool to create users
 - [ ] Add a UI (admin / upload browser / file list)
 
 ---

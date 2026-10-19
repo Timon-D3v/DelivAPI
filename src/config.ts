@@ -16,4 +16,12 @@ export const CONFIG: Config = {
     MYSQL_SCHEMA: process.env["MYSQL_SCHEMA"] as string,
 
     ORIGIN: process.env["ORIGIN"] as string,
+
+    CACHE_MAX_FILESIZE: (Number(process.env["CACHE_MAX_FILESIZE"]) || 50) * 1024 * 1024, // Convert MB to bytes
+    CACHE_ASSETS_LIMIT: Number(process.env["CACHE_ASSETS_LIMIT"]) || 100,
+    CACHE_ASSETS_MAX_SIZE: (Number(process.env["CACHE_ASSETS_MAX_SIZE"]) || 2048) * 1024 * 1024, // Convert MB to bytes
+    CACHE_ASSETS_TTL: (Number(process.env["CACHE_ASSETS_TTL"]) || 24) * 60 * 60 * 1000, // Convert hours to milliseconds
+    CACHE_TRANSFORMATION_LIMIT: Number(process.env["CACHE_TRANSFORMATION_LIMIT"]) || 1000,
+    CACHE_TRANSFORMATION_MAX_SIZE: (Number(process.env["CACHE_TRANSFORMATION_MAX_SIZE"]) || 2048) * 1024 * 1024, // Convert MB to bytes
+    CACHE_TRANSFORMATION_TTL: (Number(process.env["CACHE_TRANSFORMATION_TTL"]) || 24) * 60 * 60 * 1000, // Convert hours to milliseconds
 };

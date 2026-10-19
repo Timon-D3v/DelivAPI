@@ -1,5 +1,52 @@
 import Sharp from "sharp";
-import type { FileDetails, TransformImageOptions, RawTransformImageOptions } from "../index.js";
+import prettyBytes from "pretty-bytes";
+import type { FileDetails, TransformImageOptions, RawTransformImageOptions } from "../index.d.ts";
+
+export const transformKeys = [
+    "width",
+    "height",
+    "fit",
+    "position",
+    "kernel",
+    "withoutReduction",
+    "fastShrinkOnLoad",
+    "rotate",
+    "flip",
+    "flop",
+    "left",
+    "top",
+    "extractWidth",
+    "extractHeight",
+    "extendTop",
+    "extendBottom",
+    "extendLeft",
+    "extendRight",
+    "extendBackground",
+    "blur",
+    "sharpen",
+    "median",
+    "gamma",
+    "negate",
+    "normalize",
+    "grayscale",
+    "claheWidth",
+    "claheHeight",
+    "claheMaxSlope",
+    "brightness",
+    "saturation",
+    "hue",
+    "lightness",
+    "tint",
+    "quality",
+    "progressive",
+    "mozjpeg",
+    "lossless",
+    "format",
+    "removeAlpha",
+    "ensureAlpha",
+    "withMetadata",
+    "colourspace",
+] as const satisfies readonly (keyof RawTransformImageOptions)[];
 
 export async function transformImage(file: FileDetails, rawOptions: RawTransformImageOptions): Promise<FileDetails> {
     if (!["image/jpeg", "image/png", "image/webp", "image/gif", "image/avif", "image/tiff", "image/svg+xml"].includes(file.mimetype)) {
@@ -112,7 +159,7 @@ export async function transformImage(file: FileDetails, rawOptions: RawTransform
     }
 
     try {
-        console.info(`Starting image transformation. MIME type: ${file.mimetype}, Size: ${file.file.length} bytes`);
+        console.info(`Starting image transformation. MIME type: ${file.mimetype}, Size: ${prettyBytes(file.file.length)}`);
 
         let image = Sharp(file.file, {
             animated: true,
@@ -299,7 +346,7 @@ export async function transformImage(file: FileDetails, rawOptions: RawTransform
             jp2: "image/jp2",
         };
 
-        console.info(`Image transformed successfully. New MIME type: ${mimeTypes[info.format] ?? file.mimetype}, New size: ${data.length} bytes`);
+        console.info(`Image transformed successfully. New MIME type: ${mimeTypes[info.format] ?? file.mimetype}, New size: ${prettyBytes(data.length)}`);
 
         return {
             uuid: file.uuid,

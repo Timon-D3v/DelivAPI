@@ -1,5 +1,14 @@
 import type { FitEnum, Gravity, KernelEnum } from "sharp";
 
+declare global {
+    namespace Express {
+        interface Request {
+            cacheTransformation: (key: string, value: FileDetails) => void;
+            cacheAsset: (key: string, value: FileDetails) => void;
+        }
+    }
+}
+
 export type Config = {
     ENV: "dev" | "prod";
     HOST: string;
@@ -10,6 +19,13 @@ export type Config = {
     MYSQL_PASSWORD: string;
     MYSQL_SCHEMA: string;
     ORIGIN: string;
+    CACHE_MAX_FILESIZE: number;
+    CACHE_ASSETS_LIMIT: number;
+    CACHE_ASSETS_MAX_SIZE: number;
+    CACHE_ASSETS_TTL: number;
+    CACHE_TRANSFORMATION_LIMIT: number;
+    CACHE_TRANSFORMATION_MAX_SIZE: number;
+    CACHE_TRANSFORMATION_TTL: number;
 };
 
 export type User = {
@@ -19,7 +35,7 @@ export type User = {
 };
 
 export type FileDetails = {
-    uuid: number;
+    uuid: string;
     mimetype: string;
     file: Buffer;
 };
@@ -29,6 +45,12 @@ export type FileChunk = {
     uuid: number;
     chunkIndex: string;
     chunk: Buffer;
+};
+
+export type CachedFile = {
+    url: string;
+    details: FileDetails;
+    timestamp: number;
 };
 
 export interface TransformImageOptions {

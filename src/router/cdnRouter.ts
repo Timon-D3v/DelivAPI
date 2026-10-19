@@ -1,12 +1,14 @@
 import { type Request, type Response, Router } from "express";
 import { extension } from "mime-types";
 import { getAllChunksForUuid, getFile } from "../helper/getFile.ts";
-import { transformImage } from "../helper/transform.ts";
+import { transformImage, transformKeys } from "../helper/transform.ts";
+import { assetsCache, transformationCache } from "../middleware/cache.ts";
+import { CONFIG } from "../config.ts";
 
 // This router serves under "/cdn"
 const router = Router();
 
-router.get("/:database/:filename", async (req: Request, res: Response): Promise<void> => {
+router.get("/:database/:filename", assetsCache, transformationCache, async (req: Request, res: Response): Promise<void> => {
     const { database, filename } = req.params;
     const download = req.query?.["download"] === "true";
 
@@ -83,6 +85,15 @@ router.get("/:database/:filename", async (req: Request, res: Response): Promise<
                 req.query,
             );
 
+            if (transformedFileDetails.file.length < CONFIG.CACHE_MAX_FILESIZE * 1024 * 1024) {
+                // Cache the assets if the file size is less than the maximum cache file size
+                if (transformKeys.some((key) => key in req.query)) {
+                    req.cacheTransformation(req.originalUrl, transformedFileDetails);
+                } else {
+                    req.cacheAsset(req.originalUrl, transformedFileDetails);
+                }
+            }
+
             res.set({
                 "Content-Type": transformedFileDetails.mimetype,
                 "Content-Length": transformedFileDetails.file.length,
@@ -101,6 +112,15 @@ router.get("/:database/:filename", async (req: Request, res: Response): Promise<
     }
 
     const transformedFileDetails = await transformImage(fileDetails, req.query);
+
+    if (transformedFileDetails.file.length < CONFIG.CACHE_MAX_FILESIZE * 1024 * 1024) {
+        // Cache the assets if the file size is less than the maximum cache file size
+        if (transformKeys.some((key) => key in req.query)) {
+            req.cacheTransformation(req.originalUrl, transformedFileDetails);
+        } else {
+            req.cacheAsset(req.originalUrl, transformedFileDetails);
+        }
+    }
 
     res.set({
         "Content-Type": transformedFileDetails.mimetype,
